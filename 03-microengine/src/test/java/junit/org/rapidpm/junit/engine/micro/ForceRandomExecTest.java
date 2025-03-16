@@ -1,7 +1,7 @@
 package junit.org.rapidpm.junit.engine.micro;
 
 
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 import org.rapidpm.junit.engine.micro.MicroTest;
 import org.rapidpm.junit.engine.micro.MicroTestClass;
 

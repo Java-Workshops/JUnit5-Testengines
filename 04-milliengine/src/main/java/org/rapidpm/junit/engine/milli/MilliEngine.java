@@ -9,7 +9,7 @@ import org.junit.platform.engine.discovery.ClasspathRootSelector;
 import org.junit.platform.engine.discovery.MethodSelector;
 import org.junit.platform.engine.discovery.PackageSelector;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 import java.lang.reflect.Method;
 import java.net.URI;

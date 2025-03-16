@@ -47,7 +47,7 @@ public class UselessEngineRunner {
             .filter(TestIdentifier::isContainer)
             .map(TestIdentifier::getDisplayName)
             .map(name -> "TestEngineName: " + name)
-            .collect(Collectors.toList())
+            .toList()
             .forEach(out::println);
   }
 

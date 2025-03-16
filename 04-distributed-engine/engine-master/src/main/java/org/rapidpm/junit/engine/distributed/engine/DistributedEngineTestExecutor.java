@@ -5,7 +5,7 @@ import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 import org.rapidpm.junit.engine.distributed.shared.JUnitTaskExecutorTask;
 
 import java.util.concurrent.Future;

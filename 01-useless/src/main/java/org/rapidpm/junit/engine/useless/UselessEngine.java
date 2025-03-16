@@ -2,7 +2,7 @@ package org.rapidpm.junit.engine.useless;
 
 import org.junit.platform.engine.*;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 import static org.junit.platform.engine.TestExecutionResult.successful;
 

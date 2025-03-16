@@ -13,7 +13,7 @@ import org.junit.platform.engine.discovery.ClasspathRootSelector;
 import org.junit.platform.engine.discovery.MethodSelector;
 import org.junit.platform.engine.discovery.PackageSelector;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 import org.rapidpm.junit.engine.distributed.demo.DemoClassA;
 import org.rapidpm.junit.engine.distributed.demo.DemoClassB;
 import org.rapidpm.junit.engine.distributed.demo.DemoClassC;

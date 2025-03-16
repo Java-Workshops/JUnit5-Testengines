@@ -2,7 +2,7 @@ package org.rapidpm.junit.engine.distributed.shared;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 public class HZClassLoader
     extends ClassLoader

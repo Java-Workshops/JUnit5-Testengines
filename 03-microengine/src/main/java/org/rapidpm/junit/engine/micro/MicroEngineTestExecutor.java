@@ -6,7 +6,7 @@ import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -53,7 +53,10 @@ public class MicroEngineTestExecutor
     try {
       Class<?> testClass = descriptor.getTestClass();
       Objects.requireNonNull(testClass);
-      Object obj = (descriptor.useCDI())
+      logger().info("Executing test-class: " + testClass.getName());
+      boolean useCDI = descriptor.useCDI();
+      logger().info("Using CDI: " + useCDI);
+      Object obj = useCDI
                    ? container.select(testClass)
                               .get()
                    : ReflectionUtils.newInstance(testClass);

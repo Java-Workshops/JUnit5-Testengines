@@ -3,7 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.svenruppert</groupId>
+    <artifactId>dependencies</artifactId>
+    <version>06.00.03</version>
+  </parent>
+
+  <groupId>org.rapidpm.event</groupId>
+  <artifactId>junit5-testengines</artifactId>
   <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
 
   <inceptionYear>2013</inceptionYear>
   <organization>
@@ -45,115 +55,47 @@
   </licenses>
 
   <properties>
-    <repo-url>https://svenr.jfrog.io/artifactory/maven-release</repo-url>
-<!--    <deploy-repo-url>https://svenr.jfrog.io/artifactory/hpp-maven-release</deploy-repo-url>-->
-    <deploy-repo-url>file://${basedir}/target/repo/</deploy-repo-url>
+    <deploy-repo-url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</deploy-repo-url>
+    <deploy-repo-snapshots-url>https://s01.oss.sonatype.org/content/repositories/snapshots
+    </deploy-repo-snapshots-url>
 
-    <repo-snapshots-url>https://svenr.jfrog.io/artifactory/maven-snapshots</repo-snapshots-url>
-<!--    <deploy-repo-snapshots-url>https://svenr.jfrog.io/artifactory/hpp-maven-snapshots</deploy-repo-snapshots-url>-->
-    <deploy-repo-snapshots-url>file://${basedir}/target/snapshot-repo/</deploy-repo-snapshots-url>
+    <activateJavaOnly>true</activateJavaOnly>
 
-
-    <activateJavaOnly>false</activateJavaOnly>
-
-    <jdk.version>1.8</jdk.version>
+    <jdk.version>21</jdk.version>
     <!--technical-->
-    <!--<maven.compiler.release>8</maven.compiler.release> &lt;!&ndash;release makes source and target&ndash;&gt;-->
-    <maven.compiler.source>${jdk.version}</maven.compiler.source> <!--redundant, but IntelliJ doesn't-->
-    <maven.compiler.target>${jdk.version}</maven.compiler.target> <!--use release when importing-->
 
-    <!--    <maven.compiler.testRelease>11</maven.compiler.testRelease>-->
-    <maven.compiler.testSource>${jdk.version}</maven.compiler.testSource>
-    <maven.compiler.testTarget>${jdk.version}</maven.compiler.testTarget>
+<!--    &lt;!&ndash;Kotlin&ndash;&gt;-->
+<!--    <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>-->
+<!--    <kotlin.version>1.5.31</kotlin.version>-->
+<!--    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>-->
 
-    <!--Kotlin-->
-    <kotlin.compiler.jvmTarget>${jdk.version}</kotlin.compiler.jvmTarget>
-    <kotlin.version>1.5.31</kotlin.version>
-    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-
-    <minimum-maven.version>3.3.9</minimum-maven.version>
-
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-    <slf4j.version>1.7.30</slf4j.version>
-    <log4j-api.version>2.13.0</log4j-api.version>
-
-    <jacoco.version>0.8.6</jacoco.version>
-    <pitest.version>1.5.0</pitest.version>
-    <pitest-junit5-plugin.version>0.15</pitest-junit5-plugin.version>
     <pitest-prod-classes>org.rapidpm.*</pitest-prod-classes>
     <pitest-test-classes>junit.org.rapidpm*</pitest-test-classes>
 
     <jmh.version>1.23</jmh.version>
 
-    <!--TDD jUnit5-->
-    <junit.jupiter.version>5.6.0</junit.jupiter.version>
-    <junit.platform.version>1.6.0</junit.platform.version>
-    <junit-platform-maven-plugin.version>1.1.5</junit-platform-maven-plugin.version>
-
     <opentracing-api.version>0.33.0</opentracing-api.version>
     <asm.version>7.2</asm.version>
 
     <junit-platform-maven-plugin.timeout>300</junit-platform-maven-plugin.timeout>
+    <!--        <junit-jupiter-api.version>5.12.1</junit-jupiter-api.version>-->
+    <junit-jupiter-api.version>5.11.4</junit-jupiter-api.version>
+    <!--        <junit-platform-launcher.version>1.12.1</junit-platform-launcher.version>-->
+    <junit-platform-launcher.version>1.11.4</junit-platform-launcher.version>
   </properties>
 
   <distributionManagement>
     <repository>
       <id>deploy-repo-maven</id>
       <name>deploy-repo-maven</name>
-      <url>${repo-url}</url>
+      <url>${deploy-repo-url}</url>
     </repository>
     <snapshotRepository>
       <id>deploy-repo-maven-snapshots</id>
       <name>deploy-repo-maven-snapshots</name>
-      <url>${repo-snapshots-url}</url>
+      <url>${deploy-repo-snapshots-url}</url>
     </snapshotRepository>
   </distributionManagement>
-
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>central</id>
-      <name>libs-release</name>
-      <url>${repo-url}</url>
-    </repository>
-    <repository>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-      <id>snapshots</id>
-      <name>libs-snapshot</name>
-      <url>${repo-snapshots-url}</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>central</id>
-      <name>libs-release</name>
-      <url>${repo-url}</url>
-    </pluginRepository>
-    <pluginRepository>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-      <id>snapshots</id>
-      <name>libs-snapshot</name>
-      <url>${repo-snapshots-url}</url>
-    </pluginRepository>
-  </pluginRepositories>
-
-
-  <groupId>org.rapidpm.event</groupId>
-  <artifactId>junit5-testengines</artifactId>
-  <version>1.0-SNAPSHOT</version>
 
   <modules>
     <module>00-basics</module>
@@ -166,12 +108,13 @@
   </modules>
 
   <dependencies>
-    <dependency>
-      <groupId>org.rapidpm</groupId>
-      <artifactId>rapidpm-logger-adapter</artifactId>
-      <version>01.00.03-RPM</version>
-    </dependency>
 
+
+    <dependency>
+      <groupId>com.svenruppert</groupId>
+      <artifactId>core</artifactId>
+      <version>06.00.03</version>
+    </dependency>
     <dependency>
       <groupId>org.rapidpm</groupId>
       <artifactId>rapidpm-functional-reactive</artifactId>
@@ -214,240 +157,19 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.32</version>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <version>1.7.32</version>
-      <scope>test</scope>
+      <scope>complie</scope>
     </dependency>
-
-    <!--  WORKSHOP related-->
-    <!-- Only required to run tests in an IDE that bundles an older version -->
-        <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter-engine</artifactId>
-          <version>${junit.jupiter.version}</version>
-          <scope>test</scope>
-        </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-engine</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-commons</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <!--    needed for writing integration tests-->
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <version>${junit.jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-
-
 
   </dependencies>
 
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>versions-maven-plugin</artifactId>
-          <version>2.8.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-scm-plugin</artifactId>
-          <version>1.11.2</version>
-        </plugin>
-        <plugin>
-          <groupId>com.mycila</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>3.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.9.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>3.0.0-M1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>3.0.0-M1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>3.0.0-M1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.1.2</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>3.3.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0-M5</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>3.2.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-repository-plugin</artifactId>
-          <version>2.4</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.1.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-enforcer-plugin</artifactId>
-          <version>3.0.0-M3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jdeps-plugin</artifactId>
-          <version>3.1.2</version>
-        </plugin>
-        <plugin>
-          <groupId>org.owasp</groupId>
-          <artifactId>dependency-check-maven</artifactId>
-          <version>6.0.2</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-shade-plugin</artifactId>
-          <version>3.2.4</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.felix</groupId>
-          <artifactId>maven-bundle-plugin</artifactId>
-          <version>5.1.1</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <groupId>org.pitest</groupId>
-          <artifactId>pitest-maven</artifactId>
-          <version>${pitest.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.0.0-M5</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.5</version>
-        </plugin>
-        <plugin>
-          <groupId>com.github.webdriverextensions</groupId>
-          <artifactId>webdriverextensions-maven-plugin</artifactId>
-          <version>3.2.0</version>
-        </plugin>
-        <plugin>
-          <groupId>de.sormuras.junit</groupId>
-          <artifactId>junit-platform-maven-plugin</artifactId>
-          <version>${junit-platform-maven-plugin.version}</version>
-        </plugin>
-
-
-      </plugins>
-    </pluginManagement>
-
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -462,385 +184,6 @@
         </executions>
       </plugin>
 
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-repository-plugin</artifactId>
-      </plugin>
-
-
-      <!--Enable mutation testing-->
-      <plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-junit5-plugin</artifactId>
-            <version>${pitest-junit5-plugin.version}</version>
-          </dependency>
-        </dependencies>
-        <configuration>
-          <threads>2</threads>
-          <outputFormats>
-            <outputFormat>XML</outputFormat>
-            <outputFormat>HTML</outputFormat>
-          </outputFormats>
-          <targetClasses>
-            <param>${pitest-prod-classes}</param>
-            <!--<param>org.reflections.*</param>-->
-          </targetClasses>
-          <targetTests>
-            <param>${pitest-test-classes}</param>
-          </targetTests>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
-      </plugin>
-
-<!--      <plugin>-->
-<!--        <groupId>de.sormuras.junit</groupId>-->
-<!--        <artifactId>junit-platform-maven-plugin</artifactId>-->
-<!--        <version>${junit-platform-maven-plugin.version}</version>-->
-<!--        <extensions>true</extensions> &lt;!&ndash; Necessary to execute it in 'test' phase. &ndash;&gt;-->
-<!--        <configuration>-->
-<!--          <timeout>${junit-platform-maven-plugin.timeout}</timeout>-->
-<!--          <classNamePatterns>-->
-<!--            <pattern>^(Test.*|.*Test*.|.+[.$]Test.*|.*Tests?)$</pattern>-->
-<!--            <pattern>.*TestCase</pattern>-->
-<!--          </classNamePatterns>-->
-<!--          <tweaks>-->
-<!--            <failIfNoTests>false</failIfNoTests>-->
-<!--          </tweaks>-->
-<!--          <executor>JAVA</executor>-->
-<!--          <javaOptions>-->
-<!--            <additionalOptions>-->
-<!--              &lt;!&ndash;<protools>-Dactivate.vaadin.protools=false</protools>&ndash;&gt;-->
-<!--              <jacoco>${jacoco.java.option}</jacoco>-->
-<!--            </additionalOptions>-->
-<!--          </javaOptions>-->
-
-<!--          &lt;!&ndash;<tags>&ndash;&gt;-->
-<!--          &lt;!&ndash;<tag>vaadin-protools</tag>&ndash;&gt;-->
-<!--          &lt;!&ndash;</tags>&ndash;&gt;-->
-<!--        </configuration>-->
-<!--      </plugin>-->
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
-        <executions>
-          <execution>
-            <id>pre-unit-test</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-            <configuration>
-              <propertyName>jacoco.java.option</propertyName>
-            </configuration>
-          </execution>
-          <execution>
-            <id>post-unit-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>report</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <!-- select non-aggregate reports -->
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
-
-  <profiles>
-    <profile>
-      <id>_java</id>
-      <activation>
-        <property>
-          <name>activateJavaOnly</name>
-        </property>
-      </activation>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <dependencies>
-              <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm</artifactId>
-                <version>${asm.version}</version> <!-- Use newer version of ASM -->
-              </dependency>
-            </dependencies>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add sources</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.build.directory}/generated-sources/annotations</source>
-                    <source>src/main/java</source>
-                    <!--                    <source>src/main/kotlin</source>-->
-                  </sources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>add generated sources</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.build.directory}/generated-sources/annotations</source>
-                    <source>src/main/java</source>
-                    <!--                    <source>src/main/kotlin</source>-->
-                  </sources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>add generated test sources</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.build.directory}/generated-test-sources/test-annotations
-                    </source>
-                    <source>src/test/java</source>
-                    <!--                    <source>src/test/kotlin</source>-->
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>_java-and-kotlin</id>
-      <activation>
-        <property>
-          <name>!activateJavaOnly</name>
-        </property>
-      </activation>
-      <properties>
-
-      </properties>
-      <dependencies>
-        <!--Adding Kotlin stuff-->
-        <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-stdlib-jdk8</artifactId>
-          <version>${kotlin.version}</version>
-        </dependency>
-
-        <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-reflect</artifactId>
-          <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-test-junit</artifactId>
-          <version>${kotlin.version}</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-test-junit5</artifactId>
-          <version>${kotlin.version}</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jetbrains.kotlin</groupId>
-          <artifactId>kotlin-test</artifactId>
-          <version>${kotlin.version}</version>
-          <scope>test</scope>
-        </dependency>
-
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-plugin</artifactId>
-            <configuration>
-              <jvmTarget>${kotlin.compiler.jvmTarget}</jvmTarget>
-            </configuration>
-            <version>${kotlin.version}</version>
-            <executions>
-              <execution>
-                <id>compile</id>
-                <!--                <phase>compile</phase>-->
-                <goals>
-                  <goal>compile</goal>
-                </goals>
-                <configuration>
-                  <sourceDirs>
-                    <source>src/main/kotlin</source>
-                    <source>src/main/java</source>
-                    <source>${project.build.directory}/generated-sources/annotations</source>
-                  </sourceDirs>
-                </configuration>
-              </execution>
-              <execution>
-                <id>test-compile</id>
-                <goals>
-                  <goal>test-compile</goal>
-                </goals>
-                <configuration>
-                  <sourceDirs>
-                    <source>src/test/kotlin</source>
-                    <source>src/test/java</source>
-                    <source>${project.build.directory}/generated-test-sources/test-annotations
-                    </source>
-                  </sourceDirs>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <optimize>true</optimize>
-              <useIncrementalCompilation>false</useIncrementalCompilation>
-            </configuration>
-            <executions>
-              <!-- Replacing default-compile as it is treated specially by maven -->
-              <execution>
-                <id>default-compile</id>
-                <phase>none</phase>
-                <!--For AnnotationProcessing Compile-->
-                <configuration>
-                  <useIncrementalCompilation>false</useIncrementalCompilation>
-                </configuration>
-                <!--For AnnotationProcessing Compile-->
-              </execution>
-              <!-- Replacing default-testCompile as it is treated specially by maven -->
-              <execution>
-                <id>default-testCompile</id>
-                <phase>none</phase>
-                <!--For AnnotationProcessing Compile-->
-                <configuration>
-                  <useIncrementalCompilation>false</useIncrementalCompilation>
-                </configuration>
-                <!--For AnnotationProcessing Compile-->
-              </execution>
-              <execution>
-                <id>java-compile</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>compile</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>java-test-compile</id>
-                <phase>test-compile</phase>
-                <goals>
-                  <goal>testCompile</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>add sources</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.build.directory}/generated-sources/annotations</source>
-                    <source>src/main/java</source>
-                    <source>src/main/kotlin</source>
-                  </sources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>add generated sources</id>
-                <phase>generate-sources</phase>
-                <goals>
-                  <goal>add-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.build.directory}/generated-sources/annotations</source>
-                    <source>src/main/java</source>
-                    <source>src/main/kotlin</source>
-                  </sources>
-                </configuration>
-              </execution>
-              <execution>
-                <id>add generated test sources</id>
-                <phase>generate-test-sources</phase>
-                <goals>
-                  <goal>add-test-source</goal>
-                </goals>
-                <configuration>
-                  <sources>
-                    <source>${project.build.directory}/generated-test-sources/test-annotations
-                    </source>
-                    <source>src/test/java</source>
-                    <source>src/test/kotlin</source>
-                  </sources>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>

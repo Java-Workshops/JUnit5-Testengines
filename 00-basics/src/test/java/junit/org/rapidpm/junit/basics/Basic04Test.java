@@ -1,12 +1,12 @@
 package junit.org.rapidpm.junit.basics;
 
+import com.svenruppert.dependencies.core.logger.HasLogger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
-import org.rapidpm.dependencies.core.logger.HasLogger;
 
 public class Basic04Test {
 

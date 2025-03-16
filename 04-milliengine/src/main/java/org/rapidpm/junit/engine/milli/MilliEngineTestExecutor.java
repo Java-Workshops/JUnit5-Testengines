@@ -6,7 +6,7 @@ import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 import static org.junit.platform.engine.TestExecutionResult.successful;
 
@@ -70,12 +70,12 @@ public class MilliEngineTestExecutor
         ReflectionUtils.invokeMethod(descriptor.getTestMethod(), newInstance);
         return successful();
       } catch (Exception e) {
-        logger().warning(e.getLocalizedMessage());
+        logger().warn(e.getLocalizedMessage());
         return TestExecutionResult.failed(e);
       }
     } catch (Exception e) {
       String msg = "can  not create instance of " + descriptor.getClass() + " -- " + e.getLocalizedMessage();
-      logger().warning(msg);
+      logger().warn(msg);
       return TestExecutionResult.failed(new RuntimeException(msg, e));
     }
   }

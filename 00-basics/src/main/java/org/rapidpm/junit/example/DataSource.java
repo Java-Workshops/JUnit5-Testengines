@@ -10,6 +10,31 @@ import static java.util.stream.Collectors.toConcurrentMap;
 
 public class DataSource {
 
+  private AtomicLong idGenerator = new AtomicLong(0);
+  private Map<Long, User> persistenceStore = Stream.of(new User(idGenerator.incrementAndGet(), "admin", "admin", "Mr Admin"),
+          new User(idGenerator.incrementAndGet(), "user", "user", "Mr User"))
+      .collect(toConcurrentMap(User::id, u -> u));
+
+  public User load(Long id) {
+    return persistenceStore.get(id);
+  }
+
+  public void addUser(String login, String passwd, String name) {
+    final User u = new User(idGenerator.incrementAndGet(), login, passwd, name);
+    persistenceStore.put(u.id(), u);
+  }
+
+  public void deleteUser(User u) {
+    persistenceStore.remove(u.id());
+  }
+
+  public Stream<User> queryForLogin(String login, String password) {
+    return persistenceStore.values()
+        .stream()
+        .filter(u -> u.login().equals(login))
+        .filter(u -> u.passwd().equals(password));
+  }
+
   public static class User
       extends Quad<Long, String, String, String> {
 
@@ -33,32 +58,6 @@ public class DataSource {
       return getT4();
     }
 
-  }
-
-  private AtomicLong idGenerator = new AtomicLong(0);
-
-  private Map<Long, User> persistenceStore = Stream.of(new User(idGenerator.incrementAndGet(), "admin", "admin", "Mr Admin"),
-                                                       new User(idGenerator.incrementAndGet(), "user", "user", "Mr User"))
-                                                   .collect(toConcurrentMap(User::id, u -> u));
-
-  public User load(Long id){
-    return persistenceStore.get(id);
-  }
-
-  public void addUser(String login, String passwd, String name){
-    final User u = new User(idGenerator.incrementAndGet(), login, passwd, name);
-    persistenceStore.put(u.id(), u);
-  }
-
-  public void deleteUser(User u){
-    persistenceStore.remove(u.id());
-  }
-
-  public Stream<User> queryForLogin(String login, String password){
-    return persistenceStore.values()
-                    .stream()
-                    .filter(u -> u.login().equals(login))
-                    .filter(u -> u.passwd().equals(password));
   }
 
 }

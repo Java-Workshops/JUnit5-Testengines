@@ -13,8 +13,9 @@ import org.junit.platform.engine.discovery.PackageSelector;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
 import org.junit.platform.engine.support.discovery.EngineDiscoveryRequestResolver;
 import org.junit.platform.engine.support.discovery.SelectorResolver;
-import org.rapidpm.dependencies.core.logger.HasLogger;
-import org.rapidpm.dependencies.core.logger.Logger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class MicroEngine
 
   public static final String ENGINE_ID                = MicroEngine.class.getSimpleName();
   public static final String TEST_ENGINE_DISPLAY_NAME = "The MicroEngine";
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(MicroEngine.class);
   private final Weld weld = new Weld();
 
   @Override
@@ -53,12 +54,9 @@ public class MicroEngine
                                        "no support for private classes" + classCandidate.getSimpleName())),
                                    matchCase(() -> isAnnotated(classCandidate, MicroTestClass.class),
                                              () -> success(Boolean.TRUE))).ifFailed(
-        msg -> Logger.getLogger(MicroEngine.class)
-                     .info(msg))
+            LOGGER::info)
                                                                           .ifPresent(
-                                                                              b -> Logger.getLogger(MicroEngine.class)
-                                                                                         .info("selected class "
-                                                                                               + classCandidate))
+                                                                              b -> LOGGER.info("selected class {}", classCandidate))
                                                                           .getOrElse(() -> Boolean.FALSE);
   }
 

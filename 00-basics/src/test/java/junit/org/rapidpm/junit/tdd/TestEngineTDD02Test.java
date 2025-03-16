@@ -31,7 +31,7 @@ public class TestEngineTDD02Test {
     EngineTestKit.engine("junit-jupiter")
                  .selectors(selectClass(DemoTestClass.class))
                  .execute()
-                 .tests()
+                 .testEvents()
                  .assertStatistics(stats -> stats.started(2)
                                                  .succeeded(1)
                                                  .skipped(1)
@@ -46,7 +46,7 @@ public class TestEngineTDD02Test {
     final Events events = EngineTestKit.engine("junit-jupiter")
                                        .selectors(selectMethod(DemoTestClass.class, methodName))
                                        .execute()
-                                       .tests();
+                                       .testEvents();
 
     events.assertStatistics(stats -> stats.failed(1));
 
@@ -62,7 +62,7 @@ public class TestEngineTDD02Test {
     final Events events = EngineTestKit.engine("junit-jupiter")
                                        .selectors(selectMethod(DemoTestClass.class, methodName))
                                        .execute()
-                                       .tests();
+                                       .testEvents();
 
     events.assertStatistics(stats -> stats.skipped(1));
 

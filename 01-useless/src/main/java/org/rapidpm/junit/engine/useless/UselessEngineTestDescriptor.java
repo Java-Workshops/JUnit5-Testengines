@@ -3,7 +3,7 @@ package org.rapidpm.junit.engine.useless;
 import org.junit.platform.engine.TestSource;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor;
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 public class UselessEngineTestDescriptor
     extends AbstractTestDescriptor

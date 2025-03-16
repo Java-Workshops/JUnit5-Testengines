@@ -8,7 +8,7 @@ public class LoginService {
     this.dataSource = dataSource;
   }
 
-  public boolean checkLogin(String login, String passwd){
+  public boolean checkLogin(String login, String passwd) {
     return dataSource.queryForLogin(login, passwd).findFirst().isPresent();
   }
 

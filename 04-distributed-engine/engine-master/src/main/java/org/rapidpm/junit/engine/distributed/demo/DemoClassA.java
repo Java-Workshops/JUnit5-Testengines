@@ -1,6 +1,6 @@
 package org.rapidpm.junit.engine.distributed.demo;
 
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
 public class DemoClassA
     implements HasLogger {

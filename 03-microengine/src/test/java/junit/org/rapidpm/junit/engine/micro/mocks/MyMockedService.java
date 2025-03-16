@@ -1,8 +1,9 @@
 package junit.org.rapidpm.junit.engine.micro.mocks;
 
-import org.rapidpm.dependencies.core.logger.HasLogger;
+import com.svenruppert.dependencies.core.logger.HasLogger;
 
-import javax.enterprise.context.Dependent;
+import jakarta.enterprise.context.Dependent;
+
 
 @Dependent
 public class MyMockedService implements HasLogger {
