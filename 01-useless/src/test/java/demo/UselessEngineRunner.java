@@ -8,10 +8,9 @@ import org.junit.platform.launcher.core.LauncherConfig;
 import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
-import org.rapidpm.junit.engine.useless.UselessEngine;
+import com.svenruppert.junit.engine.useless.UselessEngine;
 
 import java.io.PrintWriter;
-import java.util.stream.Collectors;
 
 import static java.lang.System.out;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
