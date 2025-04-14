@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.*;
 public class Basic05Test {
 
   @Test
-  @ExtendWith(Basic05Test.DemoParameterResolver.class)
+  @ExtendWith(DemoParameterResolver.class)
   void test001(Demo demo) {
     Assertions.assertEquals("Hello World", demo.value());
   }

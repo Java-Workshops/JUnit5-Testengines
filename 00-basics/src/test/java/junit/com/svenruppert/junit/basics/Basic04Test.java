@@ -11,14 +11,19 @@ import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 public class Basic04Test {
 
   public static class MyExtension
-      implements BeforeEachCallback, AfterEachCallback, HasLogger {
+      implements
+      BeforeEachCallback,
+      AfterEachCallback,
+      HasLogger {
 
-    public static final String    KEY    = "KEY";
-    public static final Namespace MY_EXTENSION_NAMESPACE = Namespace.GLOBAL;
+    public static final String KEY = "KEY";
+    public static final Namespace MY_EXTENSION_NAMESPACE
+        = Namespace.create(MyExtension.class);
 
 
     @Override
-    public void beforeEach(ExtensionContext ctx) throws Exception {
+    public void beforeEach(ExtensionContext ctx)
+        throws Exception {
       final ExtensionContext.Store store = ctx.getStore(MY_EXTENSION_NAMESPACE);
       logger().info("beforeEach");
       String value = "something";
@@ -27,7 +32,8 @@ public class Basic04Test {
     }
 
     @Override
-    public void afterEach(ExtensionContext ctx) throws Exception {
+    public void afterEach(ExtensionContext ctx)
+        throws Exception {
       final ExtensionContext.Store store = ctx.getStore(Namespace.GLOBAL);
       logger().info("afterEach");
       final String value = store.get(KEY, String.class);

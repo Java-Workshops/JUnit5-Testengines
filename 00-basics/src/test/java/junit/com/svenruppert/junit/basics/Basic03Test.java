@@ -8,16 +8,19 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.Extensions;
 
 public class Basic03Test {
+
   public static class MyExtensionA
       implements BeforeEachCallback , HasLogger {
     @Override
-    public void beforeEach(ExtensionContext extensionContext) throws Exception { logger().info("beforeEach - A");  }
+    public void beforeEach(ExtensionContext extensionContext)
+        throws Exception { logger().info("beforeEach - A");  }
   }
 
   public static class MyExtensionB
       implements BeforeEachCallback , HasLogger {
     @Override
-    public void beforeEach(ExtensionContext extensionContext) throws Exception { logger().info("beforeEach - B");  }
+    public void beforeEach(ExtensionContext extensionContext)
+        throws Exception { logger().info("beforeEach - B");  }
   }
 
   @ExtendWith(Basic03Test.MyExtensionB.class)

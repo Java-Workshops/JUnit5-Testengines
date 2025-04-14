@@ -8,8 +8,8 @@ import static java.util.stream.Collectors.toConcurrentMap;
 
 public class DataSource {
 
-  private AtomicLong idGenerator = new AtomicLong(0);
-  private Map<Long, User> persistenceStore
+  private final AtomicLong idGenerator = new AtomicLong(0);
+  private final Map<Long, User> persistenceStore
       = Stream.of(
           new User(idGenerator.incrementAndGet(), "admin", "admin", "Mr Admin"),
           new User(idGenerator.incrementAndGet(), "user", "user", "Mr User"))
@@ -37,31 +37,5 @@ public class DataSource {
 
   public record User(Long id, String login, String password, String name) {
   }
-
-
-//  public static class User
-//      extends Quad<Long, String, String, String> {
-//
-//    public User(Long id, String login, String passwd, String name) {
-//      super(id, login, passwd, name);
-//    }
-//
-//    public Long id() {
-//      return getT1();
-//    }
-//
-//    public String login() {
-//      return getT2();
-//    }
-//
-//    public String passwd() {
-//      return getT3();
-//    }
-//
-//    public String name() {
-//      return getT4();
-//    }
-//
-//  }
 
 }
