@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 
+//Context Store
 public class Basic04Test {
 
   public static class MyExtension
@@ -20,11 +21,14 @@ public class Basic04Test {
     public static final Namespace MY_EXTENSION_NAMESPACE
         = Namespace.create(MyExtension.class);
 
+    private ExtensionContext.Store store(ExtensionContext ctx) {
+      return ctx.getStore(MY_EXTENSION_NAMESPACE);
+    }
 
     @Override
     public void beforeEach(ExtensionContext ctx)
         throws Exception {
-      final ExtensionContext.Store store = ctx.getStore(MY_EXTENSION_NAMESPACE);
+      final ExtensionContext.Store store = store(ctx);
       logger().info("beforeEach");
       String value = "something";
       store.put(KEY, value);
@@ -34,10 +38,10 @@ public class Basic04Test {
     @Override
     public void afterEach(ExtensionContext ctx)
         throws Exception {
-      final ExtensionContext.Store store = ctx.getStore(Namespace.GLOBAL);
+      final ExtensionContext.Store store = store(ctx);
       logger().info("afterEach");
       final String value = store.get(KEY, String.class);
-      logger().info("value is " + value);
+      logger().info("value is {}", value);
     }
 
     @Test

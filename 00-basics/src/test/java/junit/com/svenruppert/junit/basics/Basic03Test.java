@@ -25,10 +25,18 @@ public class Basic03Test {
 
   @ExtendWith(Basic03Test.MyExtensionB.class)
   @ExtendWith(Basic03Test.MyExtensionA.class)
-  public static class ExtendedTestClass {
+  public static class ExtendedTestClassA {
     @Test
     void test001() { }
   }
+
+  @ExtendWith(Basic03Test.MyExtensionA.class)
+  @ExtendWith(Basic03Test.MyExtensionB.class)
+  public static class ExtendedTestClassB {
+    @Test
+    void test001() { }
+  }
+
 
   @Extensions({
    @ExtendWith({Basic03Test.MyExtensionB.class}),
@@ -37,10 +45,13 @@ public class Basic03Test {
   public @interface BothExtensions { }
 
   @BothExtensions
-  public static class MyExtendedTestClass {
+  public static class ExtendedTestClassC {
     @Test
     void test001() { }
   }
+
+
+
 }
 
 
