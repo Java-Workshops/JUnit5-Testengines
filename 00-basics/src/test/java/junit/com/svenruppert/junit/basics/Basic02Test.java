@@ -7,24 +7,33 @@ import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
-public class Basic02Test {
+public class Basic02Test
+    implements HasLogger {
 
-  public static class MyExtension
+  @ExtendWith(MyExtensionA.class)
+  public static class ExtendedTestClass
+      implements HasLogger {
+    @Test
+    void test001() {
+      logger().info("test001");
+    }
+  }
+
+  public static class MyExtensionA
       implements BeforeEachCallback, AfterEachCallback,
       HasLogger {
 
     @Override
-    public void beforeEach(ExtensionContext extensionContext)
-        throws Exception { logger().info("beforeEach"); }
+    public void afterEach(ExtensionContext context)
+        throws Exception {
+      logger().info("afterEach");
+    }
 
     @Override
-    public void afterEach(ExtensionContext extensionContext)
-        throws Exception { logger().info("afterEach"); }
+    public void beforeEach(ExtensionContext context)
+        throws Exception {
+      logger().info("beforeEach");
+    }
   }
 
-  @ExtendWith(MyExtension.class)
-  public static class ExtendedTestClass {
-    @Test
-    void test001() { }
-  }
 }

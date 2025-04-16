@@ -3,6 +3,7 @@ package junit.com.svenruppert.junit.basics;
 import com.svenruppert.dependencies.core.logger.HasLogger;
 import com.svenruppert.junit.example.DataSource;
 import com.svenruppert.junit.example.LoginService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -14,65 +15,65 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
-import static org.junit.Assert.assertTrue;
-
+//inject - TestInstancePostProcessor
 public class Basic06Test {
 
-  // Simuliere javax.inject.Inject (ohne externe Dependency)
   @Retention(RetentionPolicy.RUNTIME)
   @Target(ElementType.FIELD)
-  public @interface Inject { }
+  public @interface Inject{}
 
-
-  // Testklasse
-  @LifeCycle
-  public static class DemoTestKlasse
-      implements HasLogger {
-    @Inject
-    private LoginService loginService; // soll gesetzt werden, wenn noch null
-
-    @Test
-    void test001() {
-      logger().info("beginne den Service zu verwenden..");
-      var adminLoggedIn = loginService.checkLogin("admin", "admin");
-      assertTrue(adminLoggedIn);
-      logger().info("bende den Service zu verwenden..");
-    }
-  }
-
-  @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
+  @Target(ElementType.TYPE)
   @ExtendWith(DemoTestInstancePostProcessor.class)
   public @interface LifeCycle {}
 
 
   public static class DemoTestInstancePostProcessor
-      implements TestInstancePostProcessor, HasLogger {
+  implements TestInstancePostProcessor , HasLogger {
+
     @Override
     public void postProcessTestInstance(Object testInstance, ExtensionContext context)
         throws Exception {
 
-      if (testInstance == null) return;
+      if(testInstance == null) return;
 
       Class<?> clazz = testInstance.getClass();
-
-      for (Field field : clazz.getDeclaredFields()) {
-        if (field.getType() == LoginService.class && field.isAnnotationPresent(Inject.class)) {
+      for(Field field : clazz.getDeclaredFields()){
+        if(field.getType() == LoginService.class && field.isAnnotationPresent(Inject.class)){
           field.setAccessible(true);
-          try {
+          try{
             Object value = field.get(testInstance);
-            if (value == null) {
-              field.set(testInstance, new LoginService(new DataSource()));
-              logger().info("LoginService wurde injiziert.");
-            } else {
-              logger().info("LoginService ist bereits gesetzt.");
+            if(value == null) {
+              var loginService = new LoginService(new DataSource());
+              field.set(testInstance, loginService);
+              logger().info("LoginService was set..");
+            } else{
+              logger().info("LoginService was already set..");
             }
-          } catch (IllegalAccessException e) {
-            throw new RuntimeException("Zugriff auf das Feld fehlgeschlagen: " + field.getName(), e);
+          } catch(IllegalAccessException e){
+            throw new RuntimeException(e);
           }
+          field.setAccessible(false);
         }
       }
     }
   }
 
+
+
+  @LifeCycle
+  public static class DemoTestClass
+      implements HasLogger {
+
+    @Inject
+    private LoginService loginService;
+
+    @Test
+    void test001() {
+      logger().info("Start using the service...");
+      var checked = loginService.checkLogin("admin", "admin");
+      Assertions.assertTrue(checked);
+      logger().info("End using the service.");
+    }
+  }
 }
